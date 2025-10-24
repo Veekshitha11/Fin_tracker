@@ -18,11 +18,7 @@ const DashboardPage = () => {
   } = useAppContext();
   const [refreshKey, setRefreshKey] = useState(0);
 
-  useEffect(() => {
-    loadDashboardData();
-  },[refreshKey, loadDashboardData]);
-
-  const loadDashboardData = useCallback(async () => {
+   const loadDashboardData = useCallback(async () => {
     setLoading(true);
     try {
       const [statsResponse, transactionsResponse] = await Promise.all([
@@ -37,6 +33,12 @@ const DashboardPage = () => {
       setLoading(false);
     }
   },[setLoading, setStats, setTransactions]);
+  
+  useEffect(() => {
+    loadDashboardData();
+  },[refreshKey, loadDashboardData]);
+
+ 
 
   const handleRefresh = () => {
     setRefreshKey((prev) => prev + 1);
