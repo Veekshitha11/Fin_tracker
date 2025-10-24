@@ -1,7 +1,7 @@
 import api from './axiosConfig';
 
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = '/api';
 
 // Get all transactions
 export const getAllTransactions = async () => {
