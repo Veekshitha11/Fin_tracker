@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { createTransaction } from '../../api/transactionsApi';
@@ -18,9 +18,9 @@ const AddTransactionForm = ({ onTransactionAdded }) => {
 
   useEffect(() => {
     loadCategories();
-  }, [formData.type]);
+  },[loadCategories]);
 
-  const loadCategories = async () => {
+  const loadCategories = useCallback(async () => {
     try {
       const response = await getCategoriesByType(formData.type);
       setCategories(response.data);
@@ -30,7 +30,7 @@ const AddTransactionForm = ({ onTransactionAdded }) => {
     } catch (error) {
       console.error('Error loading categories:', error);
     }
-  };
+  },[formData.type]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
