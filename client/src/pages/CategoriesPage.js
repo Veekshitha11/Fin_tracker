@@ -9,11 +9,7 @@ const CategoriesPage = () => {
   const { categories, setCategories, setLoading } = useAppContext();
   const [refreshKey, setRefreshKey] = useState(0);
 
-  useEffect(() => {
-    loadCategories();
-  },[refreshKey, loadCategories]);
-
-  const loadCategories = useCallback(async () => {
+    const loadCategories = useCallback(async () => {
     setLoading(true);
     try {
       const response = await getAllCategories();
@@ -24,6 +20,12 @@ const CategoriesPage = () => {
       setLoading(false);
     }
   },[setLoading, setCategories]);
+  
+  useEffect(() => {
+    loadCategories();
+  },[refreshKey, loadCategories]);
+
+
 
   const handleRefresh = () => {
     setRefreshKey((prev) => prev + 1);
