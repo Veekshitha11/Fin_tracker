@@ -16,11 +16,7 @@ const AddTransactionForm = ({ onTransactionAdded }) => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    loadCategories();
-  },[loadCategories]);
-
-  const loadCategories = useCallback(async () => {
+    const loadCategories = useCallback(async () => {
     try {
       const response = await getCategoriesByType(formData.type);
       setCategories(response.data);
@@ -31,6 +27,13 @@ const AddTransactionForm = ({ onTransactionAdded }) => {
       console.error('Error loading categories:', error);
     }
   },[formData.type]);
+
+  
+  useEffect(() => {
+    loadCategories();
+  },[loadCategories]);
+
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
