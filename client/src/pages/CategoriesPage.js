@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import CreateCategoryForm from '../components/categories/CreateCategoryForm';
 import CategoryList from '../components/categories/CategoryList';
 import { getAllCategories } from '../api/categoriesApi';
@@ -11,9 +11,9 @@ const CategoriesPage = () => {
 
   useEffect(() => {
     loadCategories();
-  }, [refreshKey]);
+  },[refreshKey, loadCategories]);
 
-  const loadCategories = async () => {
+  const loadCategories = useCallback(async () => {
     setLoading(true);
     try {
       const response = await getAllCategories();
@@ -23,7 +23,7 @@ const CategoriesPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  },[setLoading, setCategories]);
 
   const handleRefresh = () => {
     setRefreshKey((prev) => prev + 1);
