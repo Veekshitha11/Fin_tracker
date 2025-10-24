@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import OverviewStats from '../components/dashboard/OverviewStats';
 import AddTransactionForm from '../components/dashboard/AddTransactionForm';
 import RecentTransactionList from '../components/dashboard/RecentTransactionList';
@@ -20,9 +20,9 @@ const DashboardPage = () => {
 
   useEffect(() => {
     loadDashboardData();
-  }, [refreshKey]);
+  },[refreshKey, loadDashboardData]);
 
-  const loadDashboardData = async () => {
+  const loadDashboardData = useCallback(async () => {
     setLoading(true);
     try {
       const [statsResponse, transactionsResponse] = await Promise.all([
@@ -36,7 +36,7 @@ const DashboardPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  },[setLoading, setStats, setTransactions]);
 
   const handleRefresh = () => {
     setRefreshKey((prev) => prev + 1);
