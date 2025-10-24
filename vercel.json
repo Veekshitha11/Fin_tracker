@@ -1,5 +1,10 @@
 {
   "version": 2,
+  "buildCommand": "npm run build --prefix=client",
+  "outputDirectory": "client/build",
+  "env": {
+    "REACT_APP_API_URL": "@react_app_api_url"
+  },
   "builds": [
     {
       "src": "server/server.js",
@@ -17,9 +22,6 @@
     {
       "src": "/api/(.*)",
       "dest": "server/server.js"
-    },
-    {
-      "handle": "filesystem"
     },
     {
       "src": "/(.*)",
