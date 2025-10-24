@@ -1,27 +1,26 @@
 {
   "version": 2,
-  "buildCommand": "npm run build --prefix=client",
-  "outputDirectory": "client/build",
-  "env": {
-    "REACT_APP_API_URL": "@react_app_api_url"
-  },
   "builds": [
-    {
-      "src": "server/server.js",
-      "use": "@vercel/node"
-    },
     {
       "src": "client/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "build"
+        "distDir": "build",
+        "buildCommand": "npm run build"
       }
+    },
+    {
+      "src": "server/server.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
       "dest": "server/server.js"
+    },
+    {
+      "handle": "filesystem"
     },
     {
       "src": "/(.*)",
