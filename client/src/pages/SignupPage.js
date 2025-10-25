@@ -30,7 +30,7 @@ const SignupPage = () => {
     } catch (error) {
       console.error('Signup error:', error);
       // Set a user-friendly error message
-      setError('Failed to create account. Email may already be in use.');
+      setError(error.response?.data?.message || 'Failed to create account.');
     } finally {
       setLoading(false);
     }
