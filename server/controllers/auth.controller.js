@@ -10,45 +10,32 @@ const generateToken = (userId) => {
 
 // Register new user
 const register = async (req, res) => {
-  // --- NEW LOGGING ---
-  console.log('--- Register Attempt ---');
-  console.log('Received body:', req.body);
-  // --- END LOGGING ---
-
+  console.log(req.body);
+  
   try {
     const { username, email, password } = req.body;
-
-    // --- NEW LOGGING ---
+    
+    // Validate required fields
     if (!username || !email || !password) {
-      console.log('Validation FAILED: Missing fields');
       return res.status(400).json({
-        success: false,
         message: 'Username, email, and password are required.',
       });
     }
-    console.log('Validation PASSED: All fields present');
-    // --- END LOGGING ---
-
+    
     // Check if user already exists
-    console.log('Checking if email exists...');
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      console.log('Email already registered');
       return res.status(400).json({
-        success: false,
         message: 'Email already registered',
       });
     }
-
+    
     // Create new user
-    console.log('Creating new user in database...');
     const user = await User.create({ name: username, email, password });
-    console.log('User created successfully:', user._id);
-    // --- END LOGGING ---
-
+    
     // Generate token
     const token = generateToken(user._id);
-
+    
     res.status(201).json({
       success: true,
       data: {
@@ -59,12 +46,7 @@ const register = async (req, res) => {
       },
     });
   } catch (error) {
-    // --- NEW LOGGING ---
-    console.error('--- REGISTRATION ERROR ---');
-    console.error(error);
-    // --- END LOGGING ---
     res.status(400).json({
-      success: false,
       message: error.message,
     });
   }
@@ -74,38 +56,33 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-
+    
     // Check if email and password provided
     if (!email || !password) {
       return res.status(400).json({
-        success: false,
         message: 'Please provide email and password',
       });
     }
-
+    
     // Find user and include password
     const user = await User.findOne({ email }).select('+password');
-
     if (!user) {
       return res.status(401).json({
-        success: false,
         message: 'Invalid email or password',
       });
     }
-
+    
     // Check password
     const isPasswordCorrect = await user.comparePassword(password);
-
     if (!isPasswordCorrect) {
       return res.status(401).json({
-        success: false,
         message: 'Invalid email or password',
       });
     }
-
+    
     // Generate token
     const token = generateToken(user._id);
-
+    
     res.json({
       success: true,
       data: {
@@ -117,7 +94,6 @@ const login = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      success: false,
       message: error.message,
     });
   }
@@ -127,7 +103,7 @@ const login = async (req, res) => {
 const getMe = async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
-
+    
     res.json({
       success: true,
       data: {
@@ -138,7 +114,6 @@ const getMe = async (req, res) => {
     });
   } catch (error) {
     res.status(400).json({
-      success: false,
       message: error.message,
     });
   }
@@ -149,4 +124,3 @@ module.exports = {
   login,
   getMe,
 };
-
