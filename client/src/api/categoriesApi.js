@@ -1,11 +1,9 @@
 import api from './axiosConfig';
 
-const API_URL = '/api';
-
 // Get all categories
 export const getAllCategories = async () => {
   try {
-    const response = await api.get('/api/categories');
+    const response = await api.get('/categories');
     return response.data;
   } catch (error) {
     throw error.response?.data || error.message;
@@ -15,7 +13,7 @@ export const getAllCategories = async () => {
 // Get categories by type (income or expense)
 export const getCategoriesByType = async (type) => {
   try {
-    const response = await api.get(`/api/categories/${type}`);
+    const response = await api.get(`/categories/${type}`);
     return response.data;
   } catch (error) {
     throw error.response?.data || error.message;
@@ -25,7 +23,7 @@ export const getCategoriesByType = async (type) => {
 // Create a new category
 export const createCategory = async (categoryData) => {
   try {
-    const response = await api.post('/api/categories', categoryData);
+    const response = await api.post('/categories', categoryData);
     return response.data;
   } catch (error) {
     throw error.response?.data || error.message;
@@ -35,7 +33,7 @@ export const createCategory = async (categoryData) => {
 // Update a category
 export const updateCategory = async (id, categoryData) => {
   try {
-    const response = await api.put(`/api/categories/${id}`, categoryData);
+    const response = await api.put(`/categories/${id}`, categoryData);
     return response.data;
   } catch (error) {
     throw error.response?.data || error.message;
@@ -45,7 +43,7 @@ export const updateCategory = async (id, categoryData) => {
 // Delete a category
 export const deleteCategory = async (id) => {
   try {
-    const response = await api.delete(`/api/categories/${id}`);
+    const response = await api.delete(`/categories/${id}`);
     return response.data;
   } catch (error) {
     throw error.response?.data || error.message;
