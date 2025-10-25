@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // Create a new Axios instance
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || 'https://fin-tracker-8v0g.onrender.com/api',
+  baseURL: process.env.REACT_APP_API_URL || 'https://fin-tracker-8v0g.onrender.com',
 });
 
 // Add a request interceptor
