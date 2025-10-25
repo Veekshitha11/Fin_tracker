@@ -41,6 +41,8 @@
 ## 📸 Screenshots
 
 <img width="1920" height="1080" alt="Screenshot 2025-10-25 120258" src="https://github.com/user-attachments/assets/1db84ec2-02b7-4a31-a8ac-d684ef1d9947" />
+<img width="1920" height="1080" alt="Screenshot 2025-10-25 120041" src="https://github.com/user-attachments/assets/beb6f49c-4654-489b-8e79-f1e4cf1c7df2" />
+
 
 
 ## 🛠️ Technology Stack
