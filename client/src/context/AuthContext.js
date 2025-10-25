@@ -2,9 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-
 const AuthContext = createContext();
-
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
@@ -12,12 +10,10 @@ export const useAuth = () => {
   }
   return context;
 };
-
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-
   // Check if user is logged in on mount
   useEffect(() => {
     const userData = localStorage.getItem('user');
@@ -26,18 +22,16 @@ export const AuthProvider = ({ children }) => {
     }
     setLoading(false);
   }, []);
-
   // Register user
   // --- FIX #1: Changed 'name' to 'username' to match SignupPage and Backend ---
-  // --- FIX #2: Changed URL to '/api/auth/register' to use the proxy ---
+  // --- FIX #2: Changed URL to full backend URL for deployed frontend ---
   const register = async (username, email, password) => {
     try {
-      const response = await axios.post('/api/auth/register', {
+      const response = await axios.post('https://fin-tracker-8v0g.onrender.com/api/auth/register', {
         username,
         email,
         password,
       });
-
       if (response.data.success) {
         localStorage.setItem('user', JSON.stringify(response.data.data));
         setUser(response.data.data);
@@ -49,7 +43,6 @@ export const AuthProvider = ({ children }) => {
       throw error;
     }
   };
-
   // Login user
   // --- FIX #3: Changed URL to '/api/auth/login' to use the proxy ---
   const login = async (email, password) => {
@@ -58,7 +51,6 @@ export const AuthProvider = ({ children }) => {
         email,
         password,
       });
-
       if (response.data.success) {
         localStorage.setItem('user', JSON.stringify(response.data.data));
         setUser(response.data.data);
@@ -70,7 +62,6 @@ export const AuthProvider = ({ children }) => {
       throw error;
     }
   };
-
   // Logout user
   const logout = () => {
     localStorage.removeItem('user');
@@ -78,7 +69,6 @@ export const AuthProvider = ({ children }) => {
     toast.success('Logged out successfully');
     navigate('/');
   };
-
   const value = {
     user,
     loading,
@@ -86,6 +76,5 @@ export const AuthProvider = ({ children }) => {
     login,
     logout,
   };
-
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
