@@ -1,11 +1,9 @@
 import api from './axiosConfig';
 
-const API_URL = '/api';
-
 // Get all transactions
 export const getAllTransactions = async () => {
   try {
-    const response = await api.get('/api/transactions');
+    const response = await api.get('/transactions');
     return response.data;
   } catch (error) {
     throw error.response?.data || error.message;
@@ -15,7 +13,7 @@ export const getAllTransactions = async () => {
 // Get recent transactions
 export const getRecentTransactions = async (limit = 10) => {
   try {
-    const response = await api.get(`/api/transactions/recent?limit=${limit}`);
+    const response = await api.get(`/transactions/recent?limit=${limit}`);
     return response.data;
   } catch (error) {
     throw error.response?.data || error.message;
@@ -25,7 +23,7 @@ export const getRecentTransactions = async (limit = 10) => {
 // Get transaction by ID
 export const getTransactionById = async (id) => {
   try {
-    const response = await api.get(`/api/transactions/${id}`);
+    const response = await api.get(`/transactions/${id}`);
     return response.data;
   } catch (error) {
     throw error.response?.data || error.message;
@@ -35,7 +33,7 @@ export const getTransactionById = async (id) => {
 // Create a new transaction
 export const createTransaction = async (transactionData) => {
   try {
-    const response = await api.post('/api/transactions', transactionData);
+    const response = await api.post('/transactions', transactionData);
     return response.data;
   } catch (error) {
     throw error.response?.data || error.message;
@@ -45,7 +43,7 @@ export const createTransaction = async (transactionData) => {
 // Update a transaction
 export const updateTransaction = async (id, transactionData) => {
   try {
-    const response = await api.put(`/api/transactions/${id}`, transactionData);
+    const response = await api.put(`/transactions/${id}`, transactionData);
     return response.data;
   } catch (error) {
     throw error.response?.data || error.message;
@@ -55,7 +53,7 @@ export const updateTransaction = async (id, transactionData) => {
 // Delete a transaction
 export const deleteTransaction = async (id) => {
   try {
-    const response = await api.delete(`/api/transactions/${id}`);
+    const response = await api.delete(`/transactions/${id}`);
     return response.data;
   } catch (error) {
     throw error.response?.data || error.message;
@@ -65,7 +63,7 @@ export const deleteTransaction = async (id) => {
 // Get dashboard stats
 export const getDashboardStats = async () => {
   try {
-    const response = await api.get('/api/dashboard/stats');
+    const response = await api.get('/dashboard/stats');
     return response.data;
   } catch (error) {
     throw error.response?.data || error.message;
